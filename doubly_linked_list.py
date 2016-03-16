@@ -124,8 +124,35 @@ class DoublyLinkedList():
 
 
     def deleteNodeWithData(self, data):
-        ...
-
+        ''' - If list is empty, raise ValueError saying so.
+            - traverse list, checking each node to see if it contains data.
+            - exit loop if data is found or end of list is reached.
+            - check to see which condition forced loop to exit.
+                - if data was found:
+                    - get previousNode and nextNode
+                    - set previous.next to nextNode
+                    - set nextNode.previous to previousNode
+                    - set node.next, node.previous to none.
+                    -decrement self.count by 1
+                    - return message informing user that first instance of data was successfully deleted.
+                - if end of list was hit:
+                    raise ValueError saying data was not in list!
+        '''
+        if self.head == None:
+            raise ValueError("list is empty!")
+        node = self.head
+        while node.data != data and node.next != None:
+            node = node.next
+        if node.data == data:
+            previousNode = node.previous
+            nextNode = node.next
+            previousNode.next = nextNode
+            nextNode.previous = previousNode
+            node.next, node.previous = None, None
+            self.count -= 1
+            return "first instance of {} was successfully deleted!".format(data)
+        else:
+            raise ValueError("data not in list!")
 
 
 
@@ -170,14 +197,16 @@ class TestDoublyLinkedList(unittest.TestCase):
         self.assertEqual(index, 1)  # test that node was deleted
         self.assertEqual(self.dll.tail.previous.data, 1)
         self.assertEqual(self.dll.head.next.data, 3)  #testing pointer logic correctness
-    #
-    # def test_delete_node_with_data(self):
-    #     self.dll.insertAtTail(1)
-    #     self.dll.insertAtTail(2)
-    #     self.dll.insertAtTail(3)      # 1, 2, 3
-    #     self.dll.deleteNodeWithData(2)
-    #     results = self.dll.getIndexForData(2)
-    #     self.assertEqual("data not in list", results)
+
+    def test_delete_node_with_data(self):
+        self.dll.insertAtTail(1)
+        self.dll.insertAtTail(2)
+        self.dll.insertAtTail(3)      # 1, 2, 3
+        self.dll.deleteNodeWithData(2)
+        with self.assertRaises(ValueError) as context:
+            self.dll.getIndexForData(2)
+            self.assertTrue("data not in list!" in context.ValueError)
+
 
 if __name__ == "__main__":
     unittest.main()
