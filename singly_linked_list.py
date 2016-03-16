@@ -145,7 +145,7 @@ class singly_linked_list():
 
 
 
-class TestLinkedList(unittest.TestCase):
+class TestSinglyLinkedList(unittest.TestCase):
 
     def setUp(self):
         self.sll = singly_linked_list()
