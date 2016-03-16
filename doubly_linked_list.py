@@ -56,16 +56,52 @@ class DoublyLinkedList():
         self.count += 1                 # update self.count
 
     def getIndexForData(self, data):
-        ...
+        ''' - if list is empty, raise error saying so.
+            - traverse list, keeping track of index for each node.
+            - exit loop if node contains data, or if end of list is reached.
+            - check which condition caused loop to break.
+                - if at end of list, raise error saying data not in list.
+                - if data found, return index of current node.
+        '''
+        if self.head == None:
+            raise ValueError("list is empty!")
+        index = 0
+        node = self.head
+        while node.data != data and node.next != None:
+            node = node.next
+            index += 1
+        if node.next == None:
+            raise ValueError("data not in list!")
+        else:
+            return index
 
     def getDataAtIndex(self, index):
-        ...
+        ''' - if list is empty, raise IndexError saying so
+            - if index > self.count, raise IndexError error
+            - traverse list, keeping track of index for each node.
+            - exit list when counter == index
+            - return data
+        '''
+        if self.head == None:
+            raise ValueError("list is empty!")
+        if index > self.count:
+            raise IndexError("index out of range!")
+        node = self.head
+        count = 0
+        while count != index:
+            node = node.next
+            count += 1
+        return node.data
 
     def deleteNodeAtIndex(self, index):
         ...
 
     def deleteNodeWithData(self, data):
         ...
+
+
+
+
 
 class TestDoublyLinkedList(unittest.TestCase):
 
@@ -84,20 +120,20 @@ class TestDoublyLinkedList(unittest.TestCase):
         self.assertEqual(1, self.dll.head.data)
         self.assertEqual(2, self.dll.tail.data)
 
-    # def test_index_for_data(self):
-    #     self.dll.insertAtTail(1)
-    #     self.dll.insertAtTail(2)
-    #     self.dll.insertAtTail(3)  # 1, 2, 3
-    #     index = self.dll.getIndexForData(2)
-    #     self.assertEqual(index, 1)
-    #
-    # def test_get_data_at_index(self):
-    #     self.dll.insertAtTail(1)
-    #     self.dll.insertAtTail(2)
-    #     self.dll.insertAtTail(3)  # 1, 2, 3
-    #     dataAtIndex = self.dll.getDataAtIndex(1)
-    #     self.assertEqual(dataAtIndex, 2)
-    #
+    def test_get_index_for_data(self):
+        self.dll.insertAtTail(1)
+        self.dll.insertAtTail(2)
+        self.dll.insertAtTail(3)  # 1, 2, 3
+        index = self.dll.getIndexForData(2)
+        self.assertEqual(index, 1)
+
+    def test_get_data_at_index(self):
+        self.dll.insertAtTail(1)
+        self.dll.insertAtTail(2)
+        self.dll.insertAtTail(3)  # 1, 2, 3
+        dataAtIndex = self.dll.getDataAtIndex(1)
+        self.assertEqual(dataAtIndex, 2)
+
     # def test_delete_data_at_index(self):
     #     self.dll.insertAtTail(1)
     #     self.dll.insertAtTail(2)
