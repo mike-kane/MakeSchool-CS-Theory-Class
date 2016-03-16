@@ -159,7 +159,7 @@ class TestSinglyLinkedList(unittest.TestCase):
         self.sll.insertAtTail(2)
         self.assertEqual(2, self.sll.tail.data)
 
-    def test_index_for_data(self):
+    def test_get_index_for_data(self):
         self.sll.insertAtTail(1)
         self.sll.insertAtTail(2)
         self.sll.insertAtTail(3)  # 1, 2, 3
