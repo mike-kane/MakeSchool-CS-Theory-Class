@@ -70,10 +70,10 @@ class DoublyLinkedList():
         while node.data != data and node.next != None:
             node = node.next
             index += 1
-        if node.next == None:
-            raise ValueError("data not in list!")
-        else:
+        if node.data == data:
             return index
+        else:
+            raise ValueError("data not in list!")
 
     def getDataAtIndex(self, index):
         ''' - if list is empty, raise IndexError saying so
@@ -94,7 +94,34 @@ class DoublyLinkedList():
         return node.data
 
     def deleteNodeAtIndex(self, index):
-        ...
+        ''' - if list is empty, raise ValueError saying so
+            - if index > self.count, raise IndexError
+            - traverse list, where count == index for each node.
+            - exit loop when count == index
+            - get nodes that node.previous, node.next point to
+            - set previous.next pointer to nextNode.
+            - set nextNode.previous pointer to previous.
+            - set node.previous and node.next to None.
+            - decrement self.count by 1
+            - return message saying node at index was successfully deleted.
+        '''
+        if self.head == None:
+            raise ValueError("List is empty!")
+        if index > self.count:
+            raise IndexError("index out of range!")
+        counter = 0
+        node = self.head
+        while counter != index:
+            node = node.next
+            counter += 1
+        previousNode = node.previous
+        nextNode = node.next
+        nextNode.previous = previousNode    # backwards pointer now skips target node
+        previousNode.next = nextNode        # forwards pointer now skips target node
+        node.next, node.previous = None, None   # No pointers remaining, node will now be picked up by GC
+        self.count -= 1
+        return "node at index {} successfully deleted!".format(index)
+
 
     def deleteNodeWithData(self, data):
         ...
@@ -134,13 +161,15 @@ class TestDoublyLinkedList(unittest.TestCase):
         dataAtIndex = self.dll.getDataAtIndex(1)
         self.assertEqual(dataAtIndex, 2)
 
-    # def test_delete_data_at_index(self):
-    #     self.dll.insertAtTail(1)
-    #     self.dll.insertAtTail(2)
-    #     self.dll.insertAtTail(3)      # 1, 2, 3
-    #     self.dll.deleteNodeAtIndex(1) # 1, 3
-    #     index = self.dll.getIndexForData(3)
-    #     self.assertEqual(index, 1)
+    def test_delete_data_at_index(self):
+        self.dll.insertAtTail(1)
+        self.dll.insertAtTail(2)
+        self.dll.insertAtTail(3)      # 1, 2, 3
+        self.dll.deleteNodeAtIndex(1) # 1, 3
+        index = self.dll.getIndexForData(3)
+        self.assertEqual(index, 1)  # test that node was deleted
+        self.assertEqual(self.dll.tail.previous.data, 1)
+        self.assertEqual(self.dll.head.next.data, 3)  #testing pointer logic correctness
     #
     # def test_delete_node_with_data(self):
     #     self.dll.insertAtTail(1)
