@@ -75,10 +75,20 @@ class TestStack(unittest.TestCase):
         self.assertEqual(2, self.stack.tail.data)
 
     def test_peek(self):
-        ...
+        self.stack.add(1)
+        self.stack.add(2)
+        self.stack.add(3)
+        expected = self.stack.peek()
+        self.assertEqual(3, expected)
 
     def test_pop(self):
-        ...
+        self.stack.add(1)
+        self.stack.add(2)
+        self.stack.add(3)
+        popped = self.stack.pop()
+        self.assertEqual(popped, 3)
+        newTail = self.stack.peek()
+        self.assertEqual(newTail, 2)
 
 if __name__ == "__main__":
     unittest.main()
