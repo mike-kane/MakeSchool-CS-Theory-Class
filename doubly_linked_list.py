@@ -27,14 +27,14 @@ class DoublyLinkedList():
         self.count = 0
 
     def isEmpty(self):
-        if self.head == None:
+        if self.head is None:
             return true
         else:
             return false
 
     def insertAtHead(self, data):
         node = Node(data)
-        if self.head == None:
+        if self.head is None:
             self.head = node
             self.tail = node
         else:
@@ -46,7 +46,7 @@ class DoublyLinkedList():
 
     def insertAtTail(self, data):
         node = Node(data)
-        if self.head == None:
+        if self.head is None:
             self.head = node
             self.tail = node
         else:
@@ -63,7 +63,7 @@ class DoublyLinkedList():
                 - if at end of list, raise error saying data not in list.
                 - if data found, return index of current node.
         '''
-        if self.head == None:
+        if self.head is None:
             raise ValueError("list is empty!")
         index = 0
         node = self.head
@@ -82,7 +82,7 @@ class DoublyLinkedList():
             - exit list when counter == index
             - return data
         '''
-        if self.head == None:
+        if self.head is None:
             raise ValueError("list is empty!")
         if index > self.count:
             raise IndexError("index out of range!")
@@ -105,7 +105,7 @@ class DoublyLinkedList():
             - decrement self.count by 1
             - return message saying node at index was successfully deleted.
         '''
-        if self.head == None:
+        if self.head is None:
             raise ValueError("List is empty!")
         if index > self.count:
             raise IndexError("index out of range!")
@@ -138,7 +138,7 @@ class DoublyLinkedList():
                 - if end of list was hit:
                     raise ValueError saying data was not in list!
         '''
-        if self.head == None:
+        if self.head is None:
             raise ValueError("list is empty!")
         node = self.head
         while node.data != data and node.next != None:

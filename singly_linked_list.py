@@ -27,14 +27,14 @@ class singly_linked_list():
         self.count = 0
 
     def isEmpty(self):
-        if self.head == None:
+        if self.head is None:
             return true
         else:
             return false
 
     def insertAtHead(self, data):
         newNode = Node(data)
-        if self.head == None:
+        if self.head is None:
             self.head = newNode
             self.tail = newNode
         else:
@@ -45,7 +45,7 @@ class singly_linked_list():
 
     def insertAtTail(self, data):
         newNode = Node(data)
-        if self.head == None:
+        if self.head is None:
             self.head = newNode
             self.tail = newNode
         else:
@@ -55,7 +55,7 @@ class singly_linked_list():
 
 
     def getIndexForData(self, data):
-        if self.head == None:
+        if self.head is None:
             return "list is empty!"
         counter = 0
         node = self.head
@@ -75,7 +75,7 @@ class singly_linked_list():
                     - if end of list, return error saying data not in list
                     - if at index, return data attached to node
          '''
-        if self.head == None:
+        if self.head is None:
             return "list is empty!"
         counter = 0
         node = self.head
@@ -100,7 +100,7 @@ class singly_linked_list():
                     - decrement self.count by 1
         '''
 
-        if self.head == None:
+        if self.head is None:
             return "List is empty!"
         node = self.head
         previous = None
@@ -126,7 +126,7 @@ class singly_linked_list():
                 - decrement self.count by 1
                 - return message letting user know that data at index has been successfully deleted.
         '''
-        if self.head == None:
+        if self.head is None:
             return "list is empty!"
         elif index > self.count:
             raise IndexError("index out of range!")
